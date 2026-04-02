@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+<header class="p-3 text-bg-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"><a href="/"
+                                                                                                            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+        </a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+            </ul>
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"><input type="search"
+                                                                                       class="form-control form-control-dark text-bg-dark"
+                                                                                       placeholder="Search..."
+                                                                                       aria-label="Search"></form>
+            <div class="text-end">
+                <button type="button" class="btn btn-outline-light me-2">Login</button>
+                <button type="button" class="btn btn-warning">Sign-up</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="px-4 py-5 my-5 text-center"> <img class="d-block mx-auto mb-4 rounded-pill border border-dark shadow" src="static/hero.jpg" alt="" width="900" height="515"> <h1 class="display-5 fw-bold text-body-emphasis">Toiler Paper Stockade</h1> <div class="col-lg-6 mx-auto"> <p class="lead mb-4">We do the "toilet paper math" for you, so you can stock up on the cheapest rolls!</p> <div class="d-grid gap-2 d-sm-flex justify-content-sm-center"> </div> </div> </div>
+
+<!--background colour-->
+<body style="background-color:#f0f0f0;">
+<br>
+<div class="container text-left">
+    <div class="row">
+        {% for item in items %}
+<!--        <button type="button" class="btn">-->
+<!--        opacity-{{ [(((((items|length - loop.index) * 1.0 / items|length) * 125) / 25) | round | int) * 25, 25] | max }}-->
+            <div class="z-0 col-md-3 py-2 ">
+                <a class="btn card mb-5 p-0 shadow-sm  border-black {% if loop.index < 4 %}bg-white{% else %}bg-white {% endif %}" style="max-width: 330px;" href={{item.link}} target="_blank" role="button">
+                    <span class="badge position-absolute z-1 bg-dark rounded text-white bg-opacity-50 m-1" >#{{loop.index}}</span>
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="static/{{ [(loop.index/4) | round(0, 'ceil') | int, 5] | min }}.jpg" loading="lazy" width="100" class="img-fluid rounded-start border border-white" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                           <div class="card-body pt-4 ps-2">
+                              <p class="card-title fs-2 my-0 py-0 lh-1 fw-bold text-center {% if loop.index < 17 %}text-black{% else %}text-secondary{% endif %}">${{item.price_per_thousand_sheets}} </p>
+                               <p class="text-secondary text-center text-opacity-50 mb-0 fw-light fs-6">per 1000 sheets</p>
+
+                           </div>
+                        </div>
+                        <div class="row bg-white bg-body-secondary img-fluid rounded g-0 border border-white">
+                           <div class="d-flex">
+                               <small class="text-black-50 ps-1 my-1 fst-italic">{{item.name.split()[0]}}</small>
+                               <div class="col text-end">
+                               <small class="text-black-50 pe-2 my-1 fst-italic">{{item.store}}</small>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+<!--        </button>-->
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+</html>
