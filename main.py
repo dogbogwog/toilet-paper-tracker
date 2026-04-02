@@ -12,12 +12,13 @@ store_link_format = {
     "Amazon" : "https://www.amazon.ca/dp/"
 }
 
-# gets number of "item" in a string. # usage: find_number_of_items("45 mega rolls", "rolls", -1) --> returns 45
-def find_number_of_items(item_description: str, item_name:str) -> float:
+# gets number of "item" in a string. # usage: find_number_of_items("45 mega rolls", "rolls", "equal|equals|rolls") --> returns 45
+def find_number_of_items(item_description: str, item_name:str):
     if item_description:
+        item_description = item_description.lower().replace("ply sheets", "")
         start_pos = ""
         for item in item_name.split("|"):
-            start_pos = item_description.lower().find(item)
+            start_pos = item_description.find(item)
             if start_pos != -1: break
 
         words = item_description[0:start_pos].split()
@@ -29,8 +30,7 @@ def find_number_of_items(item_description: str, item_name:str) -> float:
                 pass
             else:
                 return float(words[i])
-
-    return 0.0
+    return None
 
 class Data:
     def __init__(self, data_list:list, store_name:str, name_path:str, id_path:str, img_url_path:str, price_path:str):
@@ -65,13 +65,20 @@ def extract_data(dt : Data):
 
         if new_item.get("name") and new_item.get("price"):
             try:
-                number_of_rolls = find_number_of_items(new_item.get("name").lower(), "rolls")
-                sheets_per_roll = find_number_of_items(new_item.get("name").lower(), "sheets")
+                number_of_rolls = find_number_of_items(new_item.get("name"), "equal|equals|rolls")
+                sheets_per_roll = find_number_of_items(new_item.get("name"), "sheets|")
                 new_item["number_of_rolls"] = number_of_rolls
                 new_item["sheets_per_roll"] = sheets_per_roll
                 new_item["price_per_sheet"] = float(new_item.get("price")) / (number_of_rolls * sheets_per_roll)
                 new_item["price_per_thousand_sheets"] = "{:.2f}". format(new_item["price_per_sheet"] * 1000)
                 new_item["link"] = store_link_format.get(new_item.get("store")) + new_item.get("id")
+
+                #
+                # if new_item["price_per_thousand_sheets"] == "1167.78":
+                #     print("SDFSD")
+                #     print(number_of_rolls)
+                #     print(sheets_per_roll)
+
 
             except ZeroDivisionError:
                 pass
@@ -79,6 +86,7 @@ def extract_data(dt : Data):
                 pass
             else:
                 new_list.append(new_item)
+
     return new_list
 
 
@@ -107,9 +115,6 @@ walmart_data = Data(walmart_json["search_results"],
 list_of_amazon_products = extract_data(amazon_data)
 list_of_walmart_products = extract_data(walmart_data)
 sorted_data_list = (sorted(list_of_walmart_products + list_of_amazon_products, key=lambda d: d['price_per_sheet']))
-
-# # print(sorted(list_of_walmart_products, key=lambda d: d['price_per_sheet']))
-# print(sorted(list_of_amazon_products, key=lambda d: d['price_per_sheet']))
 
 @app.route("/", methods=["GET", "POST"])
 def hello_world():
