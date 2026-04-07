@@ -9,10 +9,12 @@ app = Flask(__name__)
 
 store_link_format = {
     "Walmart" : "https://www.walmart.ca/en/ip/",
-    "Amazon" : "https://www.amazon.ca/dp/"
+    "Amazon" : "https://www.amazon.ca/dp/",
+    "Costco" : "https://www.costco.ca/p/-/",
 }
 
-# gets number of "item" in a string. # usage: find_number_of_items("45 mega rolls", "rolls", "equal|equals|rolls") --> returns 45
+# gets number of "item" in a string (looks in order, item_name: "1|2|3").
+# usage: find_number_of_items("45 mega rolls", "rolls", "equal|equals|rolls") --> returns 45
 def find_number_of_items(item_description: str, item_name:str):
     if item_description:
         item_description = item_description.lower().replace("ply sheets", "")
@@ -32,6 +34,7 @@ def find_number_of_items(item_description: str, item_name:str):
                 return float(words[i])
     return None
 
+# For paths you can use dot notation as a string to navigate json (e.g. "store.product.price")
 class Data:
     def __init__(self, data_list:list, store_name:str, name_path:str, id_path:str, img_url_path:str, price_path:str):
         self.data = data_list
@@ -65,20 +68,13 @@ def extract_data(dt : Data):
 
         if new_item.get("name") and new_item.get("price"):
             try:
-                number_of_rolls = find_number_of_items(new_item.get("name"), "equal|equals|rolls")
+                number_of_rolls = find_number_of_items(new_item.get("name"), "×| x |equal|equals|rolls|")
                 sheets_per_roll = find_number_of_items(new_item.get("name"), "sheets|")
                 new_item["number_of_rolls"] = number_of_rolls
                 new_item["sheets_per_roll"] = sheets_per_roll
                 new_item["price_per_sheet"] = float(new_item.get("price")) / (number_of_rolls * sheets_per_roll)
                 new_item["price_per_thousand_sheets"] = "{:.2f}". format(new_item["price_per_sheet"] * 1000)
                 new_item["link"] = store_link_format.get(new_item.get("store")) + new_item.get("id")
-
-                #
-                # if new_item["price_per_thousand_sheets"] == "1167.78":
-                #     print("SDFSD")
-                #     print(number_of_rolls)
-                #     print(sheets_per_roll)
-
 
             except ZeroDivisionError:
                 pass
@@ -98,6 +94,9 @@ with open("amazon.JSON", "r") as file:
 with open("walmart.JSON", "r") as file:
     walmart_json = json.load(file)
 
+with open("costco.JSON", "r") as file:
+    costco_json = json.load(file)
+
 amazon_data = Data(amazon_json["searchProductDetails"],
              "Amazon",
              "productDescription",
@@ -112,10 +111,17 @@ walmart_data = Data(walmart_json["search_results"],
              "images.main_image",
              "offers.primary.price")
 
+costco_data = Data(costco_json["data"]["products"],
+             "Costco",
+             "item_short_description",
+             "item_number",
+             "image",
+             "item_location_pricing_pricePerUnit_price")
+
 list_of_amazon_products = extract_data(amazon_data)
 list_of_walmart_products = extract_data(walmart_data)
-sorted_data_list = (sorted(list_of_walmart_products + list_of_amazon_products, key=lambda d: d['price_per_sheet']))
-
+list_of_costco_products = extract_data(costco_data)
+sorted_data_list = (sorted(list_of_walmart_products + list_of_amazon_products + list_of_costco_products, key=lambda d: d['price_per_sheet']))
 @app.route("/", methods=["GET", "POST"])
 def hello_world():
     return render_template("index.html", items = sorted_data_list)

@@ -1,0 +1,32 @@
+/* Rollover effect */
+.btn-custom:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  color: #f8f9fa;
+  border-color: #004085;
+}
+
+/* Custom button class */
+.btn-custom {
+  background-color: #007bff;
+  color: white;
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+.active>.page-link{
+    background-color: #000;
+}
+
+.pagination {
+    /* The text color of the links */
+    --bs-pagination-color: #6f42c1;
+
+    /* The color when you hover over them */
+    --bs-pagination-hover-color: #563d7c;
+
+    /* The background color of the ACTIVE page */
+    --bs-pagination-active-bg: #b35968;
+    --bs-pagination-active-border-color: #6f42c1;
+
+    /* The text color of the ACTIVE page (usually white for contrast) */
+    --bs-pagination-active-color: #ffffff;
+}

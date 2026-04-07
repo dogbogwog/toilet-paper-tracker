@@ -1,5 +1,6 @@
 import requests
 
+# AMAZON
 # URL = "http://api.axesso.de/amz/amazon-search-by-keyword-asin"
 #
 # headers = {
@@ -46,3 +47,17 @@ import requests
 # api_result = requests.get('https://api.bluecartapi.com/request', params)
 # print(api_result.json())
 
+# COSTCO API
+# url = "https://real-time-costco-data.p.rapidapi.com/search"
+#
+# querystring = {"query":"Toilet Paper","country":"CA","language":"en-CA","start":"0"}
+#
+# headers = {
+# 	"x-rapidapi-key": "0f68519fcamsh2de7950fd615ce9p120591jsn97b9056c49c8",
+# 	"x-rapidapi-host": "real-time-costco-data.p.rapidapi.com",
+# 	"Content-Type": "application/json"
+# }
+#
+# response = requests.get(url, headers=headers, params=querystring)
+#
+# print(response.json())
