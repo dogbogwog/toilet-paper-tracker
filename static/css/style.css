@@ -13,20 +13,30 @@
 }
 
 .active>.page-link{
-    background-color: #000;
+    background-color: #6c757d;
 }
 
 .pagination {
     /* The text color of the links */
-    --bs-pagination-color: #6f42c1;
+    --bs-pagination-color: #565e64;
 
     /* The color when you hover over them */
-    --bs-pagination-hover-color: #563d7c;
+    --bs-pagination-hover-color: #565e64;
 
     /* The background color of the ACTIVE page */
-    --bs-pagination-active-bg: #b35968;
-    --bs-pagination-active-border-color: #6f42c1;
+    --bs-pagination-active-bg: #565e64;
+    --bs-pagination-active-border-color: #565e64;
 
     /* The text color of the ACTIVE page (usually white for contrast) */
     --bs-pagination-active-color: #ffffff;
+
+   --#{$prefix}dropdown-link-active-bg: #565e64;
+}
+
+.nav-pills {
+    --bs-nav-pills-link-active-bg: #6c757d;
+}
+
+.nav-link {
+    color: #6c757d;
 }
