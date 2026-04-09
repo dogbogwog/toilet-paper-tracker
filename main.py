@@ -1,9 +1,9 @@
 import json
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for
 from operator import index
 import requests
 from bs4 import BeautifulSoup
-
+from werkzeug.utils import redirect
 
 app = Flask(__name__)
 
@@ -122,9 +122,14 @@ list_of_amazon_products = extract_data(amazon_data)
 list_of_walmart_products = extract_data(walmart_data)
 list_of_costco_products = extract_data(costco_data)
 sorted_data_list = (sorted(list_of_walmart_products + list_of_amazon_products + list_of_costco_products, key=lambda d: d['price_per_sheet']))
+
 @app.route("/", methods=["GET", "POST"])
-def hello_world():
-    return render_template("index.html", items = sorted_data_list)
+def index():
+    return redirect(url_for("home", page_number=1))
+
+@app.route("/<int:page_number>", methods=["GET", "POST"])
+def home(page_number):
+    return render_template("index.html", items=sorted_data_list, current_page=page_number)
 
 if __name__ == "__main__":
     app.run(debug=True)
