@@ -1,0 +1,32 @@
+<div class="container text-left px-3">
+    <div class="row">
+        {% for item in items %}
+            {% if loop.index <= 12*current_page and loop.index >= (12*current_page)-11 %}
+                <div class="z-0 col-md-3 py-2 ">
+                    <a class="btn card mb-5 p-0 shadow-sm border-black {% if loop.index < 4 %}bg-white{% else %}bg-white {% endif %}" style="max-width: 330px;" href={{item.link}} target="_blank" role="button">
+                        <span class="badge position-absolute z-1 bg-dark rounded text-white bg-opacity-50 m-1" >#{{loop.index}}</span>
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                               <img src="static/images/{{ [(loop.index/4) | round(0, 'ceil') | int, 5] | min }}.jpg" loading="lazy" width="100" class="img-fluid rounded-start border border-white" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                               <div class="card-body pt-4 ps-2">
+                                  <p class="card-title fs-2 my-0 py-0 lh-1 fw-bold text-center {% if loop.index < 17 %}text-black{% else %}text-black{% endif %}">${{item.price_per_thousand_sheets}} </p>
+                                  <p class="text-secondary text-center text-opacity-50 mb-0 fw-light fs-6">per 1000 sheets</p>
+                               </div>
+                            </div>
+                            <div class="row bg-white bg-body-secondary img-fluid rounded g-0 border border-white">
+                               <div class="d-flex">
+                                   <small class="text-black-50 ps-1 my-1 fst-italic">{{item.name.split()[0]}}</small>
+                                   <div class="col text-end">
+                                   <small class="text-black-50 pe-2 my-1 fst-italic">{{item.store}}</small>
+                                   </div>
+                               </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
