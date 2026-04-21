@@ -1,15 +1,30 @@
 /* Rollover effect */
 .btn-custom:hover {
-  background-color: #0056b3; /* Darker shade on hover */
-  color: #f8f9fa;
-  border-color: #004085;
+  background-color: #2da118; /* Darker shade on hover */
+  color: #2da118;
+  border-color: black;
 }
 
 /* Custom button class */
-.btn-custom {
-  background-color: #007bff;
-  color: white;
-  transition: all 0.3s ease; /* Smooth transition */
+.btn-custom-best {
+  --bs-btn-color: black !important;
+  --bs-btn-hover-color: #c28c2b;
+  --bs-btn-border-color: #d6d6d6;
+  --bs-btn-hover-border-color: #c28c2b;
+}
+
+.btn-custom-second-best {
+  --bs-btn-color: black !important;
+  --bs-btn-hover-color: #45a8a5;
+  --bs-btn-border-color: #d6d6d6;
+  --bs-btn-hover-border-color: #45a8a5;
+}
+
+.btn-custom-default {
+  --bs-btn-color: black !important;
+  --bs-btn-hover-color: #8e729e;
+  --bs-btn-border-color: #d6d6d6;
+  --bs-btn-hover-border-color: #8e729e;
 }
 
 .active>.page-link{
@@ -39,4 +54,25 @@
 
 .nav-link {
     color: #6c757d;
+}
+
+.best-text-colour {
+    color: #cfa321;
+}
+
+.second-best-text-colour {
+    color: #45a8a5;
+}
+
+.best-background-colour {
+    background-color: #f5f3e4 !important;
+}
+
+.second-best-background-colour {
+    background-color: #e4f5f5 !important;
+}
+
+.best-badge-background-colour{
+    background-color: #a16a18 !important;
+
 }

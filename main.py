@@ -134,7 +134,9 @@ def index():
 @app.route("/<int:page_number>", methods=["GET", "POST"])
 def home(page_number):
     if htmx:
-        return render_template("partials/stock.html", items=sorted_data_list, current_page=page_number) + render_template("partials/stock-page.html", items=sorted_data_list, current_page=page_number)
+        html_cards = render_template("partials/stock.html", items=sorted_data_list, current_page=page_number)
+        html_nav = render_template("partials/stock-page.html", items=sorted_data_list, current_page=page_number)
+        return html_cards + html_nav
     return render_template("index.html", items=sorted_data_list, current_page=page_number)
 
 if __name__ == "__main__":
