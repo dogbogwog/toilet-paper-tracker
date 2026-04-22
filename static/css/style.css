@@ -7,24 +7,27 @@
 
 /* Custom button class */
 .btn-custom-best {
-  --bs-btn-color: black !important;
+  --bs-btn-color: #1a1a1a !important;
   --bs-btn-hover-color: #c28c2b;
-  --bs-btn-border-color: #d6d6d6;
+  --bs-btn-border-color: #cccccc;
   --bs-btn-hover-border-color: #c28c2b;
+  background-color: #ffffff !important;
 }
 
 .btn-custom-second-best {
-  --bs-btn-color: black !important;
+  --bs-btn-color: #1a1a1a !important;
   --bs-btn-hover-color: #45a8a5;
-  --bs-btn-border-color: #d6d6d6;
+  --bs-btn-border-color: #cccccc;
   --bs-btn-hover-border-color: #45a8a5;
+  background-color: #ffffff !important;
 }
 
 .btn-custom-default {
-  --bs-btn-color: black !important;
+  --bs-btn-color: #1a1a1a !important;
   --bs-btn-hover-color: #8e729e;
-  --bs-btn-border-color: #d6d6d6;
+  --bs-btn-border-color: #cccccc;
   --bs-btn-hover-border-color: #8e729e;
+  background-color: #ffffff !important;
 }
 
 .active>.page-link{
@@ -76,3 +79,5 @@
     background-color: #a16a18 !important;
 
 }
+
+body { background-color: #fcfcfc; }
