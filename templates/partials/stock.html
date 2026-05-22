@@ -1,27 +1,38 @@
-<div class="container text-left px-3">
-    <div class="row">
+<div class="container">
+    <div class="row d-flex justify-content-center">
         {% for item in items %}
             {% if loop.index <= 12*current_page and loop.index >= (12*current_page)-11 %}
-                <div class="z-0 col-md-3 py-2 ">
+                {% set best_price = 2.3 %}
+                {% set second_best_price = 3.5 %}
 
-                    <div class="badge position-absolute rounded text-white border border-secondary bg-opacity-50 m-1 bg-dark z-2" >#{{loop.index}}</div>
+                <div class="z-0 col-6 col-sm-5 col-md-5 col-lg-4 col-xl-4 col-xxl-3 py-2 px-xs-0 px-xl-5 px-xxl-4 ">
+<!--                    {% if (item.price_per_thousand_sheets|float) <= best_price %}${% elif (item.price_per_thousand_sheets|float) <= second_best_price %}$${% else %}$$${% endif %}-->
+                    <div class="badge position-absolute rounded text-white border bg-opacity-50 mx-4 mx-sm-1 my-2 my-sm-1 z-2 border-dark bg-dark" >{{ loop.index }}</div>
 
-                    <a class="btn mb-5 p-0 shadow-sm {% if loop.index <= 4 %} btn-custom-best {% elif loop.index <= 8 %}btn-custom-second-best {% else %} btn-custom-default {% endif %}" style="max-width: 330px;" href={{item.link}} target="_blank" role="button">
+                    <a class="btn mb-5 mx-3 mx-sm-1 mx-lg-3 mx-xl-2 mx-md-1 p-1 my-xs-5 shadow-sm {% if (item.price_per_thousand_sheets|float) <= best_price %} btn-custom-best {% elif (item.price_per_thousand_sheets|float) <= second_best_price %}btn-custom-second-best {% else %} btn-custom-default {% endif %}" style="max-width: 330px;" href={{item.link}} target="_blank" role="button">
                         <div class="row g-0">
                             <div class="col-md-4 z-1">
-                               <img src="static/images/{{ [(loop.index/4) | round(0, 'ceil') | int, 3] | min }}.jpg" loading="lazy" width="100" class="img-fluid rounded-start border border-white ms-2" alt="...">
+                                {% if (item.price_per_thousand_sheets|float) < best_price %}
+                                    <img src="static/images/1.jpg" loading="lazy" width="80" class="img-fluid rounded-start border border-white ms-2" alt="...">
+                                {% elif (item.price_per_thousand_sheets|float) <= second_best_price %}
+                                    <img src="static/images/2.jpg" loading="lazy" width="80" class="img-fluid rounded-start border border-white ms-2" alt="...">
+                                {% else %}
+                                    <img src="static/images/3.jpg" loading="lazy" width="80" class="img-fluid rounded-start border border-white ms-2" alt="...">
+
+                                {% endif %}
                             </div>
-                            <div class="col-md-8">
-                               <div class="pt-4">
+                            <div class="col-md-7">
+                               <div class="p-sm-1 pt-md-3">
                                   <p class="fs-2 my-0 py-0 lh-1 fw-bold text-center">${{item.price_per_thousand_sheets}} </p>
                                   <p class="text-secondary text-center text-opacity-50 mb-0 fw-light fs-6">per 1000 sheets</p>
                                </div>
                             </div>
-                            <div class="row img-fluid rounded g-0 border border-white {% if loop.index <= 4 %}best-background-colour{% elif loop.index <= 8 %}second-best-background-colour{% else %}bg-body-secondary{% endif %} ">
+
+                            <div class="row img-fluid rounded g-0 border border-white {% if (item.price_per_thousand_sheets|float) <= best_price %}best-background-colour{% elif (item.price_per_thousand_sheets|float) <= second_best_price %}second-best-background-colour{% else %}bg-body-secondary{% endif %} ">
                                <div class="d-flex">
-                                   <small class="ps-1 my-1 fst-italic {% if loop.index <= 4 %} best-text-colour {% elif loop.index <= 8 %} second-best-text-colour {% else %} text-black-50 {% endif %}">{{item.name.split()[0]}}</small>
+                                   <small class="ps-1 my-1 fst-italic {% if (item.price_per_thousand_sheets|float) <= best_price %} best-text-colour {% elif (item.price_per_thousand_sheets|float) <= second_best_price %} second-best-text-colour {% else %} text-black-50 {% endif %}">{{item.name.split()[0]}}</small>
                                    <div class="col text-end">
-                                   <small class="pe-2 my-1 fst-italic {% if loop.index <= 4 %} best-text-colour {% elif loop.index <= 8 %} second-best-text-colour {% else %} text-black-50 {% endif %}" >{{item.store}}</small>
+                                   <small class="pe-2 my-1 fst-italic {% if (item.price_per_thousand_sheets|float) <= best_price %} best-text-colour {% elif (item.price_per_thousand_sheets|float) <= second_best_price %} second-best-text-colour {% else %} text-black-50 {% endif %}" >{{item.store}}</small>
                                    </div>
                                </div>
                             </div>

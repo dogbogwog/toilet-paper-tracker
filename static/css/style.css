@@ -1,8 +1,42 @@
+
+body {
+    background-color: #fcfcfc;
+}
+
 /* Rollover effect */
 .btn-custom:hover {
   background-color: #2da118; /* Darker shade on hover */
   color: #2da118;
   border-color: black;
+}
+
+.btn-toggle-custom-best {
+
+  --bs-btn-active-color: #c28c2b;
+
+  --bs-btn-bg: #ffffff;
+
+  --bs-btn-border-color: #cccccc;
+  --bs-btn-color: #cccccc;
+    display: flex;
+    justify-content: center;
+
+}
+
+.btn-toggle-custom-second-best {
+
+  --bs-btn-active-color: #45a8a5;
+  --bs-btn-hover-bg: c28c2b;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-toggle-custom-default {
+
+  --bs-btn-active-color: #8a8a8a;
+  --bs-btn-hover-bg: c28c2b;
+    display: flex;
+    justify-content: center;
 }
 
 /* Custom button class */
@@ -49,6 +83,7 @@
     --bs-pagination-active-color: #ffffff;
 
    --#{$prefix}dropdown-link-active-bg: #565e64;
+
 }
 
 .nav-pills {
@@ -80,4 +115,16 @@
 
 }
 
-body { background-color: #fcfcfc; }
+.best-banner{
+    color: #f5f3e4;
+    background-color: #cfa321 !important;
+}
+
+
+
+
+.just-me-again-down-here-regular {
+  font-family: "Just Me Again Down Here", cursive;
+  font-weight: 500;
+  font-style: normal;
+}
