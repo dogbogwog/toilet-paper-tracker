@@ -6,10 +6,11 @@
                 {% set second_best_price = 3.5 %}
 
                 <div class="z-0 col-6 col-sm-5 col-md-5 col-lg-4 col-xl-4 col-xxl-3 py-2 px-xs-0 px-xl-5 px-xxl-4 ">
-<!--                    {% if (item.price_per_thousand_sheets|float) <= best_price %}${% elif (item.price_per_thousand_sheets|float) <= second_best_price %}$${% else %}$$${% endif %}-->
-                    <div class="badge position-absolute rounded text-white border bg-opacity-50 mx-4 mx-sm-1 my-2 my-sm-1 z-2 border-dark bg-dark" >{{ loop.index }}</div>
+                    <div class="mx-3 mx-sm-1 mx-lg-3 mx-xl-2 mx-md-1">
+                        <div class="badge position-absolute rounded text-white border m-1 bg-opacity-50 z-2 border-dark bg-dark" >{{ loop.index }}</div>
+                    </div>
 
-                    <a class="btn mb-5 mx-3 mx-sm-1 mx-lg-3 mx-xl-2 mx-md-1 p-1 my-xs-5 shadow-sm {% if (item.price_per_thousand_sheets|float) <= best_price %} btn-custom-best {% elif (item.price_per_thousand_sheets|float) <= second_best_price %}btn-custom-second-best {% else %} btn-custom-default {% endif %}" style="max-width: 330px;" href={{item.link}} target="_blank" role="button">
+                    <a class="btn mb-5 shadow-sm mx-3 mx-sm-1 mx-lg-3 mx-xl-2 mx-md-1 p-1 my-xs-5 {% if (item.price_per_thousand_sheets|float) <= best_price %} btn-custom-best {% elif (item.price_per_thousand_sheets|float) <= second_best_price %}btn-custom-second-best {% else %} btn-custom-default {% endif %}" style="max-width: 330px;" href={{item.link}} target="_blank" role="button">
                         <div class="row g-0">
                             <div class="col-md-4 z-1">
                                 {% if (item.price_per_thousand_sheets|float) < best_price %}
