@@ -1,10 +1,10 @@
 <div id="stock-page" hx-swap-oob="true">
-    <div class="container">
-        <div class="row">
-            <div class="col">
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col">-->
                 <nav aria-label="...">
-                    <ul class="pagination justify-content-end">
-                        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                    <ul class="pagination pagination justify-content-end">
+<!--                        <li class="page-item disabled"><span class="page-link">Page:</span></li>-->
                             {% for page_number in range(1, 1 + (items|length) // 12) %}
                                 {% if current_page == page_number %}
                                 <li class="page-item active"><a class="page-link">{{page_number}}</a></li>
@@ -19,10 +19,10 @@
                                     </li>
                                 {% endif %}
                             {% endfor %}
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+<!--                        <li class="page-item"><a class="page-link" href="#">Next</a></li>-->
                     </ul>
                 </nav>
-            </div>
-        </div>
-    </div>
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>

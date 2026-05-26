@@ -8,16 +8,19 @@
               integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <link rel="stylesheet" href="static/css/style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
+
     </head>
     <body>
-        <div class="container">
+        <div class="container pb-3">
             <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
 
                 <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-<!--                    <img src="static/images/canada-flag.png" class="rounded-1 ms-3" alt="..." height="30">-->
-                    <h1 class="fs-2 just-me-again-down-here-regular text-center align-middle">Toilet Paper Stockade</h1>
+                    <img src="static/images/canada-flag.png" class="rounded-1 ms-3" alt="..." height="30">
+                    <h1 class="fs-6 text-center align-middle ps-3 pt-2 fst-italic fw-light">"Best Website For Comparing Prices!"</h1>
                 </a>
 
 
@@ -31,36 +34,44 @@
                 </ul>
             </header>
         </div>
-
-<!--        <img class="z-0 d-block mx-auto mb-2 rounded-pill shadow img-fluid" src="static/images/hero.jpg" alt="">-->
-<!--        <h1 class = "just-me-again-down-here-regular text-center py-5 text-secondary">We do the "toilet paper math" for you!</h1>-->
-
-        <div class="container">
-            <div class = "py-5">
-
-                <h5 class = "text-center pb-5 text-body-tertiary">We do the "toilet paper math" for you, so you can stock up on the cheapest rolls!</h5>
+        <div class="container d-flex justify-content-center text-center">
+            <div class="image-blur hero-image rounded-pill mx-auto d-block mb-3" style="width: 1300px; height: 200px;" alt="">
+                <div class="dynapuff-font text-drop-shadow" style="position: absolute; top: 18%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; font-weight: bold; text-align: center;">
+                    TOILET PAPER SAVER!
+                </div>
             </div>
-            <p class="d-inline-flex gap-1">
-<!--            <div class="row px-0">-->
-<!--                <div class="col-1">-->
-                <div class="btn-group align-middle">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filter By Brand
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Default</a>
-                    <a class="dropdown-item" href="#">Snowsoft</a>
-                    <a class="dropdown-item" href="#">Toilet</a>
-                    <a class="dropdown-item" href="#">Cascades</a>
-                </div>
-                </div>
+        </div>
+
+<!--        <p class="d-flex justify-content-center p-5">-->
+
+<!--            Prices are updated every Monday! Last updated: 2 Days Ago-->
+<!--        </p>-->
+
+        <div class="container pt-5">
+            <div class="container d-flex justify-content-center pb-3">
+<!--                <div class="d-flex justify-content-center px-2 align-middle text-body-tertiary">Filter By:</div>-->
+                <p class="d-inline-flex gap-1">
+    <!--            <div class="row px-0">-->
+    <!--                <div class="col-1">-->
+                    <div class="btn-group align-middle">
+
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter By Brand
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Default</a>
+                        <a class="dropdown-item" href="#">Snowsoft</a>
+                        <a class="dropdown-item" href="#">Toilet</a>
+                        <a class="dropdown-item" href="#">Cascades</a>
+                    </div>
+                    </div>
 
 
-                <button type="button" class="btn active px-4 btn-toggle-custom-best d-flex d-inline-flex fs-6" data-bs-toggle="button" aria-pressed="true" style="width: 60px;">$</button>
-                <button type="button" class="btn active px-4 btn-toggle-custom-second-best d-flex d-inline-flex fs-6" data-bs-toggle="button" aria-pressed="true" style="width: 60px;">$$</button>
-                <button type="button" class="btn active px-4 btn-toggle-custom-default d-flex d-inline-flex fs-6" data-bs-toggle="button" aria-pressed="true" style="width: 60px;">$$$</button>
-
-            </p>
+                    <button type="button" class="btn px-4 btn-toggle-custom-best d-flex d-inline-flex ms-1" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$</button>
+                    <button type="button" class="btn px-4 btn-toggle-custom-second-best d-flex d-inline-flex ms-1" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$$</button>
+                    <button type="button" class="btn px-4 btn-toggle-custom-default d-flex d-inline-flex ms-1" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$$$</button>
+                </p>
+            </div>
 <!--                    </div>-->
 <!--                </div>-->
 
@@ -76,9 +87,10 @@
                 {% include "partials/stock.html" %}
             </div>
 
+            <div class="container d-flex justify-content-center pb-5">
             <span id="stock-page">
                 {% include "partials/stock-page.html" %}
-            </span>
+            </span></div>
         </div>
 
         <br>
@@ -90,7 +102,7 @@
                             <use xlink:href="#bootstrap"></use>
                         </svg>
                     </a>
-                    <span class="mb-3 mb-md-0 text-body-secondary">© Toilet Paper Stockade, Inc</span>
+                    <span class="mb-3 mb-md-0 text-body-secondary">© Toilet Paper Saver, Inc</span>
                 </div>
             </footer>
         </div>

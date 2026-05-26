@@ -1,4 +1,19 @@
 
+.hero-image {
+    background-image: url(/static/images/hero.png);
+    background-size: cover;
+
+}
+
+.text-drop-shadow{
+    text-shadow: 2px 2px 22px #ffffff;
+}
+
+.image-blur{
+  box-shadow: inset 0 0 15px 15px #ffffff;
+}
+
+
 body {
     background-color: #fcfcfc;
 }
@@ -10,40 +25,55 @@ body {
   border-color: black;
 }
 
+.btn-secondary{
+    --bs-btn-bg: #ffffff;
+    --bs-btn-color: #5c636a;
+}
+
 .btn-toggle-custom-best {
-
-  --bs-btn-active-color: #c28c2b;
-
-  --bs-btn-bg: #ffffff;
-
-  --bs-btn-border-color: #cccccc;
-  --bs-btn-color: #cccccc;
     display: flex;
     justify-content: center;
 
+  --bs-btn-color: #cfa321;
+  --bs-btn-hover-bg: #cfa321;
+  --bs-btn-border-color: #cfa321;
+
+  --bs-btn-bg: #ffffff;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-color: #cccccc;
 }
 
 .btn-toggle-custom-second-best {
-
-  --bs-btn-active-color: #45a8a5;
-  --bs-btn-hover-bg: c28c2b;
     display: flex;
     justify-content: center;
+
+  --bs-btn-color: #45a8a5;
+  --bs-btn-hover-bg: #45a8a5;
+  --bs-btn-border-color: #45a8a5;
+
+  --bs-btn-bg: #ffffff;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-color: #cccccc;
 }
 
 .btn-toggle-custom-default {
-
-  --bs-btn-active-color: #8a8a8a;
-  --bs-btn-hover-bg: c28c2b;
     display: flex;
     justify-content: center;
+
+  --bs-btn-color: #997baa;
+  --bs-btn-hover-bg: #997baa;
+  --bs-btn-border-color: #997baa;
+
+  --bs-btn-bg: #ffffff;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-color: #cccccc;
 }
 
 /* Custom button class */
 .btn-custom-best {
   --bs-btn-color: #1a1a1a !important;
   --bs-btn-hover-color: #c28c2b;
-  --bs-btn-border-color: #cccccc;
+  --bs-btn-border-color: #b0b0b0;
   --bs-btn-hover-border-color: #c28c2b;
   background-color: #ffffff !important;
 }
@@ -51,16 +81,16 @@ body {
 .btn-custom-second-best {
   --bs-btn-color: #1a1a1a !important;
   --bs-btn-hover-color: #45a8a5;
-  --bs-btn-border-color: #cccccc;
+  --bs-btn-border-color: #b0b0b0;
   --bs-btn-hover-border-color: #45a8a5;
   background-color: #ffffff !important;
 }
 
 .btn-custom-default {
   --bs-btn-color: #1a1a1a !important;
-  --bs-btn-hover-color: #8e729e;
-  --bs-btn-border-color: #cccccc;
-  --bs-btn-hover-border-color: #8e729e;
+  --bs-btn-hover-color: #997baa;
+  --bs-btn-border-color: #b0b0b0;
+  --bs-btn-hover-border-color: #997baa;
   background-color: #ffffff !important;
 }
 
@@ -121,10 +151,22 @@ body {
 }
 
 
-
-
 .just-me-again-down-here-regular {
   font-family: "Just Me Again Down Here", cursive;
-  font-weight: 500;
+  font-weight: 0;
   font-style: normal;
+  font-size: 70px !important;
+}
+
+.dynapuff-font {
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 75;
+  font-size: 65px !important;
+  /*text-shadow: 3px 3px 1px #363636;*/
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #404040, -3px 3px 0 #404040, 1px 1px 0 #404040;
+
+  color: #ffffff;
 }
