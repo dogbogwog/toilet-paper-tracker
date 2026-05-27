@@ -6,7 +6,7 @@
 }
 
 .text-drop-shadow{
-    text-shadow: 2px 2px 22px #ffffff;
+    text-shadow: 2px 2px 2px #ffffff;
 }
 
 .image-blur{
@@ -158,6 +158,11 @@ body {
   font-size: 70px !important;
 }
 
+.grey-text{
+  color: #404040;
+  text-shadow: 1px 1px 2px #40404055;
+}
+
 .dynapuff-font {
   font-family: "DynaPuff", system-ui;
   font-optical-sizing: auto;
@@ -167,6 +172,10 @@ body {
   font-size: 65px !important;
   /*text-shadow: 3px 3px 1px #363636;*/
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #404040, -3px 3px 0 #404040, 1px 1px 0 #404040;
+  line-height: 0.9;
+  font-weight: bold;
+  text-align: center;
+
 
   color: #ffffff;
 }

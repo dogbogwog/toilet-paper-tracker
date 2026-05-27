@@ -7,20 +7,19 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <link rel="stylesheet" href="static/css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=block" rel="stylesheet">
 
     </head>
     <body>
         <div class="container pb-3">
             <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
 
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <a href="/" class="d-flex align-items-center me-md-auto link-body-emphasis text-decoration-none d-none d-sm-block pt-1">
                     <img src="static/images/canada-flag.png" class="rounded-1 ms-3" alt="..." height="30">
-                    <h1 class="fs-6 text-center align-middle ps-3 pt-2 fst-italic fw-light">"Best Website For Comparing Prices!"</h1>
+                    <span class="fs-6 text-center align-middle px-3 fst-italic fw-light">"Best Website For Comparing Prices!"</span>
                 </a>
 
 
@@ -36,23 +35,23 @@
         </div>
         <div class="container d-flex justify-content-center text-center">
             <div class="image-blur hero-image rounded-pill mx-auto d-block mb-3" style="width: 1300px; height: 200px;" alt="">
-                <div class="dynapuff-font text-drop-shadow" style="position: absolute; top: 18%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; font-weight: bold; text-align: center;">
-                    TOILET PAPER SAVER!
+
+                <div class="row pt-4 pt-md-5 mt-3">
+                    <div class="dynapuff-font text-drop-shadow">
+                        TOILET PAPER SAVER!
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="fs-4 pt-2 grey-text fw-light" style="font-weight: bold;">Prices Updated Mondays!</div>
                 </div>
             </div>
         </div>
 
-<!--        <p class="d-flex justify-content-center p-5">-->
-
-<!--            Prices are updated every Monday! Last updated: 2 Days Ago-->
-<!--        </p>-->
-
         <div class="container pt-5">
             <div class="container d-flex justify-content-center pb-3">
-<!--                <div class="d-flex justify-content-center px-2 align-middle text-body-tertiary">Filter By:</div>-->
                 <p class="d-inline-flex gap-1">
-    <!--            <div class="row px-0">-->
-    <!--                <div class="col-1">-->
+
                     <div class="btn-group align-middle">
 
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,16 +71,6 @@
                     <button type="button" class="btn px-4 btn-toggle-custom-default d-flex d-inline-flex ms-1" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$$$</button>
                 </p>
             </div>
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <span class="col-10 text-end align-middle fst-italic align-self-center">-->
-<!--                    Last Updated:-->
-<!--                    <span class = "fw-bold border-bottom">-->
-<!--                        2 Days Ago-->
-<!--                    </span>-->
-<!--                </span>-->
-
             <br>
             <div id="stock-data">
                 {% include "partials/stock.html" %}
