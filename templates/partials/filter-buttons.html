@@ -1,0 +1,62 @@
+<div id="filter-buttons" hx-swap-oob="true">
+    <input type="hidden" name="cost_1" value="{{ filter_cost_1 | tojson }}">
+    <input type="hidden" name="cost_2" value="{{ filter_cost_2 | tojson }}">
+    <input type="hidden" name="cost_3" value="{{ filter_cost_3 | tojson }}">
+    <div class="container d-flex justify-content-center pb-3 pt-5">
+        <p class="d-inline-flex gap-1">
+            <div class="btn-group align-middle">
+                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if f_brand == "default" %}
+                        Filter By Brand
+                    {% else %}
+                        {{ f_brand }}
+                    {% endif %}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item"
+                        hx-vals='{{ {"f_brand": default} }}'
+                        hx-get="/"
+                        hx-swap="innerHTML"
+                        hx-include="#filter-buttons"
+                        hx-target="#stock-data"
+                        href="#">Default
+                    </a>
+
+                    {% for brand_name in unique_brand_names %}
+
+                        <a class="dropdown-item"
+                            hx-vals='{{ {"f_brand": brand_name}|tojson }}'
+                            hx-get="/"
+                            hx-swap="innerHTML"
+                            hx-include="#filter-buttons"
+                            hx-target="#stock-data"
+                            href="#">{{brand_name}}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <button type="button"
+                    hx-vals='{{ {"cost_1": not filter_cost_1}|tojson }}'
+                    hx-get="/"
+                    hx-swap="innerHTML"
+                    hx-include="#filter-buttons"
+                    hx-target="#stock-data"
+                    class="btn btn-sm px-4 btn-toggle-custom-best d-flex d-inline-flex ms-1 {% if filter_cost_1 %}active{% endif %}" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$</button>
+            <button type="button"
+                    hx-vals='{{ {"cost_2": not filter_cost_2}|tojson }}'
+                    hx-get="/"
+                    hx-swap="innerHTML"
+                    hx-include="#filter-buttons"
+                    hx-target="#stock-data"
+                    class="btn btn-sm px-4 btn-toggle-custom-second-best d-flex d-inline-flex ms-1 {% if filter_cost_2 %}active{% endif %}" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$$</button>
+            <button type="button"
+                    hx-vals='{{ {"cost_3": not filter_cost_3}|tojson }}'
+                    hx-get="/"
+                    hx-swap="innerHTML"
+                    hx-include="#filter-buttons"
+                    hx-target="#stock-data"
+                    class="btn btn-sm px-4 btn-toggle-custom-default d-flex d-inline-flex ms-1 {% if filter_cost_3 %}active{% endif %}" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$$$</button>
+        </p>
+    </div>
+</div>

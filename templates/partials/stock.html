@@ -8,7 +8,7 @@
 
                 <div class="z-0 col-6 col-sm-5 col-md-5 col-lg-4 col-xl-4 col-xxl-3 px-xs-0 px-xl-5 px-xxl-4">
                     <div class="mx-3 mx-sm-1 mx-lg-3 mx-xl-2 mx-md-1">
-                        <div class="badge position-absolute rounded text-white m-1 bg-opacity-75 z-2 border-dark bg-dark" >#{{ loop.index }}</div>
+                        <div class="badge position-absolute rounded text-white m-1 bg-opacity-50 z-2 border-dark bg-dark" >#{{ loop.index }}</div>
                     </div>
 
                     <a class="btn mb-5 shadow-sm mx-3 mx-sm-1 mx-lg-3 mx-xl-2 mx-md-1 p-1 my-xs-5 {% if (item.price_per_thousand_sheets|float) <= best_price %} btn-custom-best {% elif (item.price_per_thousand_sheets|float) <= second_best_price %}btn-custom-second-best {% else %} btn-custom-default {% endif %}" style="max-width: 330px;" href={{item.link}} target="_blank" role="button">

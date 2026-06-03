@@ -1,4 +1,6 @@
 import json
+from os.path import split
+
 from flask import Flask, request, render_template, url_for
 from operator import index
 import requests
@@ -124,20 +126,47 @@ list_of_amazon_products = extract_data(amazon_data)
 list_of_walmart_products = extract_data(walmart_data)
 list_of_costco_products = extract_data(costco_data)
 sorted_data_list = (sorted(list_of_walmart_products + list_of_amazon_products + list_of_costco_products, key=lambda d: d['price_per_sheet']))
+unique_brand_names = set([item.get('name').split()[0] for item in sorted_data_list])
 
+def filter_data_list(**filter_items):
+    new_list = [item for item in sorted_data_list
+                if not (filter_items["cost_1"] and float(item["price_per_thousand_sheets"]) <= 2.30)
+                and not (filter_items["cost_2"] and 2.30 < float(item["price_per_thousand_sheets"]) <= 3.50)
+                and not (filter_items["cost_3"] and float(item["price_per_thousand_sheets"]) > 3.50)]
 
+    if filter_items["f_brand"] != "default":
+        new_list = [item for item in sorted_data_list
+                    if item.get('name').split()[0] == filter_items["f_brand"]]
+
+    return new_list
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return redirect(url_for("home", page_number=1))
+    page_number = request.args.get('page_num', default=1, type=int)
 
-@app.route("/<int:page_number>", methods=["GET", "POST"])
-def home(page_number):
+    def get_bool(key):
+        return request.args.get(key, 'false').lower() == 'true'
+
+    c1 = get_bool('cost_1')
+    c2 = get_bool('cost_2')
+    c3 = get_bool('cost_3')
+    b1 = request.args.get('f_brand', 'default')
+
+    filtered_item_list = filter_data_list(cost_1 = c1, cost_2 = c2, cost_3 = c3, f_brand = b1)
+    # print(unique_brand_names)
+
     if htmx:
-        html_cards = render_template("partials/stock.html", items=sorted_data_list, current_page=page_number)
-        html_nav = render_template("partials/stock-page.html", items=sorted_data_list, current_page=page_number)
-        return html_cards + html_nav
-    return render_template("index.html", items=sorted_data_list, current_page=page_number)
+        html_filters = render_template("partials/filter-buttons.html", filter_cost_1=c1, filter_cost_2=c2, filter_cost_3=c3, f_brand=b1, unique_brand_names=unique_brand_names)
+        html_cards = render_template("partials/stock.html", items=filtered_item_list, current_page=page_number)
+        html_nav = render_template("partials/stock-page.html", items=filtered_item_list, current_page=page_number)
+        return html_cards + html_nav + html_filters
+    return render_template("index.html", items=filtered_item_list, current_page=page_number, filter_cost_1=c1, filter_cost_2=c2, filter_cost_3=c3, f_brand=b1, unique_brand_names=unique_brand_names)
+
+
+@app.route("/FAQ")
+def frequent_asked_questions():
+    return render_template("FAQ.html")
+
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5001, debug=True)

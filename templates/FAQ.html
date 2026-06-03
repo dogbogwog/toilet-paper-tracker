@@ -25,10 +25,10 @@
 
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active" aria-current="page">Home</a>
+                        <a href="{{url_for('index')}}" class="nav-link" aria-current="page">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url_for('frequent_asked_questions')}}" class="nav-link">FAQs</a>
+                        <a href="{{url_for('frequent_asked_questions')}}" class="nav-link active">FAQs</a>
                     </li>
                 </ul>
             </header>
@@ -41,31 +41,17 @@
                         TOILET PAPER SAVER!
                     </div>
                 </div>
-
-<!--                <div class="row">-->
-<!--                    <div class="fs-5 pt-1 grey-text fw-light" style="font-weight: bold;">Prices Updated Mondays</div>-->
-<!--                </div>-->
             </div>
         </div>
 
-        <div id="filter-buttons pb-5">
-            {% include "partials/filter-buttons.html" %}
+        <div class="container">
+            <div class="row">
+                Page Contents
+            </div>
         </div>
 
         <br>
 
-        <div id="stock-data">
-            {% include "partials/stock.html" %}
-        </div>
-
-        <div class="container d-flex justify-content-center pb-5">
-            <span id="stock-page">
-                {% include "partials/stock-page.html" %}
-            </span>
-        </div>
-
-
-        <br>
         <div class="container">
             <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
                 <div class="col-md-4 d-flex align-items-center">
