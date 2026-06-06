@@ -8,127 +8,84 @@ from bs4 import BeautifulSoup
 from werkzeug.utils import redirect
 from flask_htmx import HTMX
 
+from flask import Flask, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import Integer, String, Float, Text
+
+from datetime import date
+from flask import Flask, render_template, request
+
+import price_updater
+
 app = Flask(__name__)
 htmx = HTMX(app)
-
-store_link_format = {
-    "Walmart" : "https://www.walmart.ca/en/ip/",
-    "Amazon" : "https://www.amazon.ca/dp/",
-    "Costco" : "https://www.costco.ca/p/-/",
-}
-
-# gets number of "item" in a string (looks in order, item_name: "1|2|3").
-# usage: find_number_of_items("45 mega rolls", "rolls", "equal|equals|rolls") --> returns 45
-def find_number_of_items(item_description: str, item_name:str):
-    if item_description:
-        item_description = item_description.lower().replace("ply sheets", "")
-        start_pos = ""
-        for item in item_name.split("|"):
-            start_pos = item_description.find(item)
-            if start_pos != -1: break
-
-        words = item_description[0:start_pos].split()
-
-        for i in range(len(words)-1, -1, -1):
-            try:
-                float(words[i])
-            except ValueError:
-                pass
-            else:
-                return float(words[i])
-    return None
-
-# For paths you can use dot notation as a string to navigate json (e.g. "store.product.price")
-class Data:
-    def __init__(self, data_list:list, store_name:str, name_path:str, id_path:str, img_url_path:str, price_path:str):
-        self.data = data_list
-        self.store_name = store_name
-        self.item_name = name_path
-        self.item_id = id_path
-        self.item_img_url = img_url_path
-        self.item_price = price_path
-
-def pull_data_from_path(data, path : str):
-    for item in path.split("."):
-        if data:
-            data = data.get(item)
-    return data
-
-def extract_data(dt : Data):
-    new_list = []
-    for product in dt.data:
-        new_item = {
-            "store": dt.store_name,
-            "name": pull_data_from_path(product, dt.item_name),
-            "id": pull_data_from_path(product, dt.item_id),
-            "img_url": pull_data_from_path(product, dt.item_img_url),
-            "price": pull_data_from_path(product, dt.item_price),
-            "number_of_rolls": None,
-            "sheets_per_roll": None,
-            "price_per_sheet": None,
-            "price_per_thousand_sheets": None,
-            "link": None,
-        }
-
-        if new_item.get("name") and new_item.get("price"):
-            try:
-                number_of_rolls = find_number_of_items(new_item.get("name"), "×| x |equal|equals|rolls|")
-                sheets_per_roll = find_number_of_items(new_item.get("name"), "sheets|")
-                new_item["number_of_rolls"] = number_of_rolls
-                new_item["sheets_per_roll"] = sheets_per_roll
-                new_item["price_per_sheet"] = float(new_item.get("price")) / (number_of_rolls * sheets_per_roll)
-                new_item["price_per_thousand_sheets"] = "{:.2f}". format(new_item["price_per_sheet"] * 1000)
-                new_item["link"] = store_link_format.get(new_item.get("store")) + new_item.get("id")
-
-            except ZeroDivisionError:
-                pass
-            except TypeError:
-                pass
-            else:
-                new_list.append(new_item)
-
-    return new_list
+import os
 
 
-#############################################
-# get JSON and parse all useless data
-with open("amazon.JSON", "r") as file:
-    amazon_json = json.load(file)
+# CREATE DATABASE
+class Base(DeclarativeBase):
+    pass
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///items.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///posts.db")
+db = SQLAlchemy(model_class=Base)
+db.init_app(app)
 
-with open("walmart.JSON", "r") as file:
-    walmart_json = json.load(file)
+# with app.app_context():
+#     db.create_all()
 
-with open("costco.JSON", "r") as file:
-    costco_json = json.load(file)
 
-amazon_data = Data(amazon_json["searchProductDetails"],
-             "Amazon",
-             "productDescription",
-             "asin",
-             "imgUrl",
-             "price")
+# @app.route('/')
+# def get_all_posts():
+#     # TODO: Query the database for all the posts. Convert the data to a python list.
+#     posts = db.session.execute(db.select(TPItem)).scalars().all()
+#     return render_template("index.html", all_posts=posts)
+#
+# # TODO: Add a route so that you can click on individual posts.
+# @app.route('/post/<int:post_id>', methods=["GET", "POST"])
+# def show_post(post_id):
+# # TODO: Retrieve a BlogPost from the database based on the post_id
+#     requested_post = db.get_or_404(entity=TPItem, ident=post_id)
+#     return render_template("post.html", post=requested_post)
+#
+#
+# @app.route('/new-post', methods=["GET", "POST"])
+# def new_post():
+#         post = TPItem(
+#             title = form.title.data,
+#             subtitle = form.subtitle.data,
+#             body=form.body.data,
+#             author=form.author.data,
+#             date=form.date.data,
+#             img_url=form.img_url.data,
+#         )
+#         db.session.add(post)
+#         db.session.commit()
+#         return redirect(url_for("get_all_posts"))
+#     else:
+#         return render_template("make-post.html", form=form)
 
-walmart_data = Data(walmart_json["search_results"],
-             "Walmart",
-             "product.title",
-             "product.item_id",
-             "images.main_image",
-             "offers.primary.price")
+class TPItem(db.Model):
+    __tablename__ = "tp_item_list"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    store: Mapped[str] = mapped_column(String(250), nullable=False)
+    name: Mapped[str] = mapped_column(String(250), nullable=False)
+    price: Mapped[str] = mapped_column(Float, nullable=False)
+    number_of_rolls: Mapped[str] = mapped_column(Integer, nullable=False)
+    sheets_per_roll: Mapped[str] = mapped_column(Integer, nullable=False)
+    price_per_thousand_sheets: Mapped[str] = mapped_column(Float, nullable=False)
+    link: Mapped[str] = mapped_column(String(250), nullable=False)
+    link_id: Mapped[str] = mapped_column(String(250), nullable=False)
+    price_per_sheet: Mapped[str] = mapped_column(Float, nullable=False)
 
-costco_data = Data(costco_json["data"]["products"],
-             "Costco",
-             "item_short_description",
-             "item_number",
-             "image",
-             "item_location_pricing_pricePerUnit_price")
 
-list_of_amazon_products = extract_data(amazon_data)
-list_of_walmart_products = extract_data(walmart_data)
-list_of_costco_products = extract_data(costco_data)
-sorted_data_list = (sorted(list_of_walmart_products + list_of_amazon_products + list_of_costco_products, key=lambda d: d['price_per_sheet']))
-unique_brand_names = set([item.get('name').split()[0] for item in sorted_data_list])
 
-def filter_data_list(**filter_items):
+
+price_updater.fetch_and_replace_prices()
+
+
+
+def filter_data_list(item_list, sorted_data_list, **filter_items):
     new_list = [item for item in sorted_data_list
                 if not (filter_items["cost_1"] and float(item["price_per_thousand_sheets"]) <= 2.30)
                 and not (filter_items["cost_2"] and 2.30 < float(item["price_per_thousand_sheets"]) <= 3.50)
@@ -142,6 +99,24 @@ def filter_data_list(**filter_items):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    # sorted_data_list = db.session.execute(db.select(TPItem)).scalars().all()
+    db_list = db.session.execute(db.select(TPItem)).scalars().all()
+
+    sorted_data_list = []
+    for item in db_list:
+        sorted_data_list.append({
+            "store": item.store,
+            "name": item.name,
+            "link_id": item.link_id,
+            "price": item.price,
+            "number_of_rolls": item.number_of_rolls,
+            "sheets_per_roll": item.sheets_per_roll,
+            "price_per_sheet": item.price_per_sheet,
+            "price_per_thousand_sheets": item.price_per_thousand_sheets,
+            "link": item.link,
+        })
+
+    unique_brand_names = set([item.get('name').split()[0] for item in sorted_data_list])
     page_number = request.args.get('page_num', default=1, type=int)
 
     def get_bool(key):
@@ -152,8 +127,8 @@ def index():
     c3 = get_bool('cost_3')
     b1 = request.args.get('f_brand', 'default')
 
-    filtered_item_list = filter_data_list(cost_1 = c1, cost_2 = c2, cost_3 = c3, f_brand = b1)
-    # print(unique_brand_names)
+    item_list = db.session.execute(db.select(TPItem)).scalars().all()
+    filtered_item_list = filter_data_list(item_list, sorted_data_list, cost_1 = c1, cost_2 = c2, cost_3 = c3, f_brand = b1)
 
     if htmx:
         html_filters = render_template("partials/filter-buttons.html", filter_cost_1=c1, filter_cost_2=c2, filter_cost_3=c3, f_brand=b1, unique_brand_names=unique_brand_names)
