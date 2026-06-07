@@ -31,39 +31,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///items.db'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
-# with app.app_context():
-#     db.create_all()
-
-
-# @app.route('/')
-# def get_all_posts():
-#     # TODO: Query the database for all the posts. Convert the data to a python list.
-#     posts = db.session.execute(db.select(TPItem)).scalars().all()
-#     return render_template("index.html", all_posts=posts)
-#
-# # TODO: Add a route so that you can click on individual posts.
-# @app.route('/post/<int:post_id>', methods=["GET", "POST"])
-# def show_post(post_id):
-# # TODO: Retrieve a BlogPost from the database based on the post_id
-#     requested_post = db.get_or_404(entity=TPItem, ident=post_id)
-#     return render_template("post.html", post=requested_post)
-#
-#
-# @app.route('/new-post', methods=["GET", "POST"])
-# def new_post():
-#         post = TPItem(
-#             title = form.title.data,
-#             subtitle = form.subtitle.data,
-#             body=form.body.data,
-#             author=form.author.data,
-#             date=form.date.data,
-#             img_url=form.img_url.data,
-#         )
-#         db.session.add(post)
-#         db.session.commit()
-#         return redirect(url_for("get_all_posts"))
-#     else:
-#         return render_template("make-post.html", form=form)
 
 class TPItem(db.Model):
     __tablename__ = "tp_item_list"
@@ -78,12 +45,7 @@ class TPItem(db.Model):
     link_id: Mapped[str] = mapped_column(String(250), nullable=False)
     price_per_sheet: Mapped[str] = mapped_column(Float, nullable=False)
 
-
-
-
 price_updater.fetch_and_replace_prices()
-
-
 
 def filter_data_list(item_list, sorted_data_list, **filter_items):
     new_list = [item for item in sorted_data_list
@@ -99,7 +61,6 @@ def filter_data_list(item_list, sorted_data_list, **filter_items):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # sorted_data_list = db.session.execute(db.select(TPItem)).scalars().all()
     db_list = db.session.execute(db.select(TPItem)).scalars().all()
 
     sorted_data_list = []
