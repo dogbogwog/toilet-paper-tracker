@@ -23,7 +23,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///post
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
-
 class TPItem(db.Model):
     __tablename__ = "tp_item_list"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -37,6 +36,8 @@ class TPItem(db.Model):
     link_id: Mapped[str] = mapped_column(String(250), nullable=False)
     price_per_sheet: Mapped[str] = mapped_column(Float, nullable=False)
 
+with app.app_context():
+    db.create_all()
 
 def filter_data_list(sorted_data_list, **filter_items):
     new_list = [item for item in sorted_data_list
