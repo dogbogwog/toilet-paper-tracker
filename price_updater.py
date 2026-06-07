@@ -109,7 +109,7 @@ def fetch_and_replace_prices():
     # AMAZON
     URL = "http://api.axesso.de/amz/amazon-search-by-keyword-asin"
     headers = {
-        "axesso-api-key": "4ee06f3120b4424d858a295b5cb8fcf2",
+        "axesso-api-key": (os.environ.get('amazon_key')),
         "Cache-Control": "no-cache",
     }
     params = {
@@ -121,7 +121,7 @@ def fetch_and_replace_prices():
     #
     # # WALMART API
     params = {
-        "api_key": "C2539FFD577943BE8C404CB3B1E59A42",
+        "api_key": (os.environ.get('walmart_key')),
         "type": "search",
         "search_term": "toilet paper",
         "walmart_domain": "walmart.ca"
@@ -132,7 +132,7 @@ def fetch_and_replace_prices():
     url = "https://real-time-costco-data.p.rapidapi.com/search"
     querystring = {"query": "Toilet Paper", "country": "CA", "language": "en-CA", "start": "0"}
     headers = {
-        "x-rapidapi-key": "0f68519fcamsh2de7950fd615ce9p120591jsn97b9056c49c8",
+        "x-rapidapi-key": (os.environ.get('costco_key')),
         "x-rapidapi-host": "real-time-costco-data.p.rapidapi.com",
         "Content-Type": "application/json"
     }
