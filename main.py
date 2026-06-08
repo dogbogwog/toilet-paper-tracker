@@ -9,6 +9,7 @@ from sqlalchemy import Integer, String, Float
 from flask import Flask, render_template, request
 import price_updater
 import os
+import threading
 
 app = Flask(__name__)
 htmx = HTMX(app)
@@ -75,7 +76,7 @@ def index():
         item_list = db.session.execute(db.select(TPItem)).scalars().all()
 
     except OperationalError as e:
-        print(f"error: no database {e}")
+        print(f"error: no database")
 
     # for testing!!!:
     # sorted_data_list = [{
@@ -117,10 +118,26 @@ def frequent_asked_questions():
     return render_template("FAQ.html")
 
 
-@app.route('/tasks/update-prices', methods=['POST'])
+# @app.route('/tasks/update-prices', methods=['POST'])
+# def trigger_price_update():
+#     # Security check: Make sure the cron job sends the password
+#     # (Matches the password you will put in cron-job.org)
+#     SECRET_TOKEN = os.environ.get('cron-job-key')
+#
+#     provided_token = request.headers.get("Authorization")
+#     if provided_token != f"Bearer {SECRET_TOKEN}":
+#         return {"error": "Unauthorized"}, 401
+#
+#     try:
+#         # Move the script execution INSIDE the route
+#         price_updater.fetch_and_replace_prices()
+#         return {"status": "success", "message": "Prices updated successfully!"}, 200
+#     except Exception as e:
+#         return {"status": "error", "message": str(e)}, 500
+
+# Accept both methods so testing is easier
+@app.route('/tasks/update-prices', methods=['GET', 'POST'])
 def trigger_price_update():
-    # Security check: Make sure the cron job sends the password
-    # (Matches the password you will put in cron-job.org)
     SECRET_TOKEN = os.environ.get('cron-job-key')
 
     provided_token = request.headers.get("Authorization")
@@ -128,9 +145,11 @@ def trigger_price_update():
         return {"error": "Unauthorized"}, 401
 
     try:
-        # Move the script execution INSIDE the route
-        price_updater.fetch_and_replace_prices()
-        return {"status": "success", "message": "Prices updated successfully!"}, 200
+        # Spin up the background thread so it doesn't time out
+        thread = threading.Thread(target=price_updater.fetch_and_replace_prices)
+        thread.start()
+
+        return {"status": "success", "message": "Price update started!"}, 200
     except Exception as e:
         return {"status": "error", "message": str(e)}, 500
 
