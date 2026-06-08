@@ -3,7 +3,7 @@
     <div class="row d-flex justify-content-center px-xl-4 px-xxl-5">
         {% for item in items %}
             {% if loop.index <= 12*current_page and loop.index >= (12*current_page)-11 %}
-                {% set best_price = 2.3 %}
+                {% set best_price = 2.0 %}
                 {% set second_best_price = 3.5 %}
 
                 <div class="z-0 col-6 col-sm-5 col-md-5 col-lg-4 col-xl-4 col-xxl-3 px-xs-0 px-xl-5 px-xxl-4">
@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-md-7">
                                <div class="p-sm-1 pt-md-3">
-                                  <p class="fs-3 my-0 py-0 lh-1 fw-bold text-center">${{item.price_per_thousand_sheets}} </p>
+                                  <p class="fs-3 my-0 py-0 lh-1 fw-bold text-center">${{"%.2f"|format(item.price_per_thousand_sheets)}}</p>
                                   <p class="text-secondary text-center text-opacity-50 mb-0 fw-light fs-6">per 1000 sheets</p>
                                </div>
                             </div>

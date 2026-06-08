@@ -41,8 +41,8 @@ with app.app_context():
 
 def filter_data_list(sorted_data_list, **filter_items):
     new_list = [item for item in sorted_data_list
-                if not (filter_items["cost_1"] and float(item["price_per_thousand_sheets"]) <= 2.30)
-                and not (filter_items["cost_2"] and 2.30 < float(item["price_per_thousand_sheets"]) <= 3.50)
+                if not (filter_items["cost_1"] and float(item["price_per_thousand_sheets"]) <= 2.00)
+                and not (filter_items["cost_2"] and 2.0 < float(item["price_per_thousand_sheets"]) <= 3.50)
                 and not (filter_items["cost_3"] and float(item["price_per_thousand_sheets"]) > 3.50)]
 
     if filter_items["f_brand"] != "default":
