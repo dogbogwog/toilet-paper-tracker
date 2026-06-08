@@ -42,21 +42,26 @@
                     hx-swap="innerHTML"
                     hx-include="#filter-buttons"
                     hx-target="#stock-data"
-                    class="btn btn-sm px-4 btn-toggle-custom-best d-flex d-inline-flex ms-1 {% if filter_cost_1 %}active{% endif %}" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$</button>
-            <button type="button"
+<button class="btn btn-sm px-4 btn-toggle-custom-best d-flex d-inline-flex ms-1 {% if filter_cost_1 %}active{% endif %}"
+        aria-pressed="true"
+        style="width: 50px;"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-custom-class="custom-tooltip"
+        data-bs-title="Under $2.00">$</button>            <button type="button"
                     hx-vals='{{ {"cost_2": not filter_cost_2}|tojson }}'
                     hx-get="/"
                     hx-swap="innerHTML"
                     hx-include="#filter-buttons"
                     hx-target="#stock-data"
-                    class="btn btn-sm px-4 btn-toggle-custom-second-best d-flex d-inline-flex ms-1 {% if filter_cost_2 %}active{% endif %}" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$$</button>
+                    class="btn btn-sm px-4 btn-toggle-custom-second-best d-flex d-inline-flex ms-1 {% if filter_cost_2 %}active{% endif %}" data-bs-toggle="button" aria-pressed="true" style="width: 50px;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="$2.00 $3.50">$$</button>
             <button type="button"
                     hx-vals='{{ {"cost_3": not filter_cost_3}|tojson }}'
                     hx-get="/"
                     hx-swap="innerHTML"
                     hx-include="#filter-buttons"
                     hx-target="#stock-data"
-                    class="btn btn-sm px-4 btn-toggle-custom-default d-flex d-inline-flex ms-1 {% if filter_cost_3 %}active{% endif %}" data-bs-toggle="button" aria-pressed="true" style="width: 50px;">$$$</button>
+                    class="btn btn-sm px-4 btn-toggle-custom-default d-flex d-inline-flex ms-1 {% if filter_cost_3 %}active{% endif %}" data-bs-toggle="button" aria-pressed="true" style="width: 50px;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="$3.50">$$$</button>
         </p>
     </div>
 </div>
