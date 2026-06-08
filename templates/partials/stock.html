@@ -31,11 +31,9 @@
                             </div>
 
                             <div class="row img-fluid rounded g-0 border border-white {% if (item.price_per_thousand_sheets|float) <= best_price %}best-background-colour{% elif (item.price_per_thousand_sheets|float) <= second_best_price %}second-best-background-colour{% else %}bg-body-secondary{% endif %} ">
-                               <div class="d-flex">
+                               <div class="d-flex justify-content-between align-items-center">
                                    <small class="ps-1 my-1 fst-italic {% if (item.price_per_thousand_sheets|float) <= best_price %} best-text-colour {% elif (item.price_per_thousand_sheets|float) <= second_best_price %} second-best-text-colour {% else %} text-black-50 {% endif %}">{{item.name.split()[0]}}</small>
-                                   <div class="col text-end">
                                    <small class="pe-2 my-1 fst-italic {% if (item.price_per_thousand_sheets|float) <= best_price %} best-text-colour {% elif (item.price_per_thousand_sheets|float) <= second_best_price %} second-best-text-colour {% else %} text-black-50 {% endif %}" >{{item.store}}</small>
-                                   </div>
                                </div>
                             </div>
                         </div>
