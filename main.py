@@ -77,17 +77,18 @@ def index():
     except OperationalError as e:
         print(f"error: no database {e}")
 
-    sorted_data_list = [{
-        "store": "Walmart",
-        "name": "ToiletPaper",
-        "link_id": "12345",
-        "price": 12.45,
-        "number_of_rolls": 12,
-        "sheets_per_roll": 500,
-        "price_per_sheet": 0.002075,
-        "price_per_thousand_sheets": 2.08,
-        "link": "walmart.ca/",
-    }]
+    # for testing!!!:
+    # sorted_data_list = [{
+    #     "store": "Walmart",
+    #     "name": "ToiletPaper",
+    #     "link_id": "12345",
+    #     "price": 12.45,
+    #     "number_of_rolls": 12,
+    #     "sheets_per_roll": 500,
+    #     "price_per_sheet": 0.002075,
+    #     "price_per_thousand_sheets": 2.08,
+    #     "link": "walmart.ca/",
+    # }]
 
     unique_brand_names = set([item.get('name').split()[0] for item in sorted_data_list])
     page_number = request.args.get('page_num', default=1, type=int)
