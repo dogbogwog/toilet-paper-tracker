@@ -11,7 +11,7 @@
                         <div class="badge position-absolute rounded text-white m-1 bg-opacity-50 z-2 border-dark bg-dark" >#{{ loop.index }}</div>
                     </div>
 
-                    <a class="btn mb-5 shadow-sm mx-3 mx-sm-1 mx-lg-3 mx-xl-2 mx-md-1 p-1 my-xs-5 {% if (item.price_per_thousand_sheets|float) <= best_price %} btn-custom-best {% elif (item.price_per_thousand_sheets|float) <= second_best_price %}btn-custom-second-best {% else %} btn-custom-default {% endif %}" style="max-width: 330px;" href={{item.link}} target="_blank" role="button" data-umami-event="Click Store Link" data-umami-event-store="{{ item.store }}">
+                    <a class="btn mb-5 shadow-sm mx-3 mx-sm-1 mx-lg-3 mx-xl-2 mx-md-1 p-1 my-xs-5 {% if (item.price_per_thousand_sheets|float) <= best_price %} btn-custom-best {% elif (item.price_per_thousand_sheets|float) <= second_best_price %}btn-custom-second-best {% else %} btn-custom-default {% endif %}" style="max-width: 330px;" href={{item.link}} target="_blank" role="button" data-umami-event="Clicked Store Link: {{ item.store }}" data-umami-event-price="price per thou: {{ item.price_per_thousand_sheets }}" data-umami-event-store="name: {{ item.name }}">
                         <div class="row g-0">
                             <div class="col-md-4 z-1">
                                 {% if (item.price_per_thousand_sheets|float) < best_price %}

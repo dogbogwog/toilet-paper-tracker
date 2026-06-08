@@ -42,13 +42,8 @@
                     hx-swap="innerHTML"
                     hx-include="#filter-buttons"
                     hx-target="#stock-data"
-<button class="btn btn-sm px-4 btn-toggle-custom-best d-flex d-inline-flex ms-1 {% if filter_cost_1 %}active{% endif %}"
-        aria-pressed="true"
-        style="width: 50px;"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        data-bs-custom-class="custom-tooltip"
-        data-bs-title="Under $2.00">$</button>            <button type="button"
+                    class="btn btn-sm px-4 btn-toggle-custom-best d-flex d-inline-flex ms-1 {% if filter_cost_1 %}active{% endif %}" data-bs-toggle="button" aria-pressed="true" style="width: 50px;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="$2.00">$</button>
+            <button type="button"
                     hx-vals='{{ {"cost_2": not filter_cost_2}|tojson }}'
                     hx-get="/"
                     hx-swap="innerHTML"
