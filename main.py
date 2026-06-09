@@ -136,7 +136,7 @@ def frequent_asked_questions():
 #         return {"status": "error", "message": str(e)}, 500
 
 # Accept both methods so testing is easier
-@app.route('/tasks/update-prices', methods=['GET', 'POST'])
+@app.route('/tasks/update-prices', methods=['POST'])
 def trigger_price_update():
     SECRET_TOKEN = os.environ.get('cron-job-key')
 
